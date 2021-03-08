@@ -1,6 +1,6 @@
 import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
-import { addPost, deletePost, updatePost } from './posts.actions';
+import { addPost, deletePost, loadPostsSuccess, updatePost } from './posts.actions';
 import { initialState } from './posts.state';
 
 const _postsReducer = createReducer(initialState,
@@ -30,8 +30,13 @@ const _postsReducer = createReducer(initialState,
       return {
         ...state,
         posts: updatedPosts,
-
+      };
+    }), on(loadPostsSuccess,(state,action) => {
+      return {
+        ...state,
+        posts: action.posts,
       }
+
     })
 );
 
